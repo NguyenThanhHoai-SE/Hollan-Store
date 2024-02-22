@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function Footer() {
 
     const listFootNav = ['Home', 'About', 'Term & Conditions', 'Shipping & Return Policy', 'Privacy Policy', 'FAQ']
@@ -18,9 +20,9 @@ export default function Footer() {
                         {
                             listFootNav.map((item, index) => (
                                 <li key={index}>
-                                    <a className="block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm text-black dark:text-neutral-300" href="/">
+                                    <Link className="block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm text-black dark:text-neutral-300" href="/">
                                         {item}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))
                         }
