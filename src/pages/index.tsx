@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+  import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 interface Rate {
     count: number,
     rate: number
@@ -13,22 +13,21 @@ interface Product {
     price: number,
     rating: Rate
 }
-export default function Page() {
 
-    const [topProducts, setTopProducts] = useState<Product[]>([])
-    const [products, setProducts] = useState<Product[]>([])
+export const getServerSideProps = (async () => {
+    // Fetch data from external API
+    const res = await fetch('https://fakestoreapi.com/products')
+    const repo: Product[] = await res.json()
+    // Pass data to the page via props
+    return { props: { repo } }
+  }) satisfies GetServerSideProps<{ repo: Product[] }>
 
-    useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
-            .then(res=>res.json())
-            .then(json=>{
-                setTopProducts(json?.slice(0,3));
-                setProducts(json.splice(3))
-            })
-    }, [])
+  export default function Page({repo}: InferGetServerSidePropsType<typeof getServerSideProps>)
+{
 
-    console.log("topProducts", topProducts);
-    console.log("products", products);
+    const topProducts = [...repo].slice(0,3) ?? [];
+    const products = [...repo].splice(3) ?? [];
+
     return (
         <>
             <section className='mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2'>
