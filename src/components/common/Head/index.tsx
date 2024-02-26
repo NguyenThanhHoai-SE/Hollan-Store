@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from 'react';
 export default function Header() {
   const listNav = [
     {
@@ -16,6 +18,28 @@ export default function Header() {
     },
   ];
 
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch('/search')
+  }, [router])
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault()
+
+    if (e.key === 'Enter') {
+      const q = e.currentTarget.value
+
+      router.push(
+        {
+          pathname: `/search`,
+          query: q ? { q } : {},
+        },
+        undefined,
+        { shallow: true }
+      )
+    }
+  }
   return (
     <>
       <nav className="relative flex items-center justify-between p-4 lg:px-6">
@@ -56,11 +80,14 @@ export default function Header() {
           </div>
 
           <div className="hidden justify-center md:flex md:w-1/3">
-            <form className="w-max-[550px] relative w-full lg:w-80 xl:w-full">
+            <form className="w-max-[550px] relative w-full lg:w-80 xl:w-full" onSubmit={(e) => { e.preventDefault()}}>
               <input
+              onKeyUp={handleKeyUp}
+                name="search"
                 type="text"
                 placeholder="Search for products..."
                 autoComplete="off"
+                defaultValue={router.query.q}
                 className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
               />
               <div className="absolute right-0 top-0 mr-3 flex h-full items-center">

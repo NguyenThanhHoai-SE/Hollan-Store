@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function Search({ collections }: { collections: string[] }) {
   const router = useRouter();
-  const { category } = router.query;
+  const { category, q } = router.query;
   const sortList = ["asc", "desc"];
   const [sort, setSort] = useState("asc");
 
@@ -16,6 +16,7 @@ export default function Search({ collections }: { collections: string[] }) {
         category={category as string}
         isReady={router.isReady}
         sort={(sort as string) ?? "asc"}
+        q = {q as string ?? ''}
       />
       <div className="order-none flex-none md:order-last md:w-[125px]">
         <nav>
