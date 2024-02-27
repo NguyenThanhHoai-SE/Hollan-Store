@@ -1,8 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 export default function Header() {
+  const router = useRouter();
+  const [cart, setCart] = useState([])
+  setTimeout(() => {
+    setCart(typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("cartList") ?? "[]")
+    : []);
+  }, 1000)
+  
+
   const listNav = [
     {
       name: "All",
@@ -18,17 +27,19 @@ export default function Header() {
     },
   ];
 
-  const router = useRouter();
-
   useEffect(() => {
-    router.prefetch('/search')
-  }, [router])
+    router.prefetch("/search");
+  }, [router]);
+
+  const cartCount = useMemo(() => {
+    return cart?.length ?? 0;
+  }, [cart]);
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (e.key === 'Enter') {
-      const q = e.currentTarget.value
+    if (e.key === "Enter") {
+      const q = e.currentTarget.value;
 
       router.push(
         {
@@ -37,9 +48,9 @@ export default function Header() {
         },
         undefined,
         { shallow: true }
-      )
+      );
     }
-  }
+  };
   return (
     <>
       <nav className="relative flex items-center justify-between p-4 lg:px-6">
@@ -80,9 +91,14 @@ export default function Header() {
           </div>
 
           <div className="hidden justify-center md:flex md:w-1/3">
-            <form className="w-max-[550px] relative w-full lg:w-80 xl:w-full" onSubmit={(e) => { e.preventDefault()}}>
+            <form
+              className="w-max-[550px] relative w-full lg:w-80 xl:w-full"
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
               <input
-              onKeyUp={handleKeyUp}
+                onKeyUp={handleKeyUp}
                 name="search"
                 type="text"
                 placeholder="Search for products..."
@@ -111,6 +127,9 @@ export default function Header() {
           </div>
 
           <div className="flex justify-end md:w-1/3">
+            <div className={`border rounded-full h-[20px] w-[20px] text-xs flex justify-center items-center absolute top-[7px] right-[18px] bg-[#ffffff] text-[#000000] z-[1] ${cartCount === 0 && 'hidden'}`}>
+              {cartCount}
+            </div>
             <button aria-label="Open cart">
               <div className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white">
                 <svg

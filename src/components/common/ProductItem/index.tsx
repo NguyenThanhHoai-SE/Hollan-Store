@@ -4,7 +4,7 @@ import { Product } from "../../../model/type";
 
 export default function ProductItem({ item }: { item: Product }) {
   return (
-    <Link className="relative inline-block h-full w-full" href="/">
+    <Link className="relative inline-block h-full w-full" href={`/product/${item.id}`}>
       <div className="group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800">
         <Image
           className="relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105"
