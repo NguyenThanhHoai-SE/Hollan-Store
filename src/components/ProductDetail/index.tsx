@@ -8,8 +8,8 @@ interface ProductCus extends Product {
   count: number;
 }
 export default function ProductDetail({ product }: { product: Product }) {
-  const [selectColor, setSelectColor] = useState<string>();
-  const [selectSize, setSelectSize] = useState<string>();
+  const [selectColor, setSelectColor] = useState<string>('');
+  const [selectSize, setSelectSize] = useState<string>('');
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 
   const addToCart = () => {
