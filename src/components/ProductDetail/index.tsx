@@ -36,7 +36,7 @@ export default function ProductDetail({ product }: { product: Product }) {
       fetch(`https://fakestoreapi.com/products/category/${product.category}`)
         .then((res) => res.json())
         .then((json) =>
-          setRelatedProducts(json?.filter((e) => e.id !== product.id))
+          setRelatedProducts(json?.filter((e: Product) => e.id !== product.id))
         );
   }, [product]);
 
