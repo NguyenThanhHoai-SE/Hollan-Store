@@ -2,7 +2,29 @@ import Link from "next/link"
 
 export default function Footer() {
 
-    const listFootNav = ['Home', 'About', 'Term & Conditions', 'Shipping & Return Policy', 'Privacy Policy', 'FAQ']
+    const listFootNav = [
+        {
+            name: "Home",
+            link: "/"
+        },
+        {
+            name: "About",
+            link: "/about"
+        },
+        {
+            name: "Term & Conditions",
+            link: "/terms-conditions"
+        },
+        {
+            name: "Shipping & Return Policy",
+            link: "/shipping-return-policy"
+        },
+        {
+            name: "FAQ",
+            link: "/frequently-asked-questions"
+        },
+
+    ]
     return(
         <div className="text-sm text-neutral-500 dark:text-neutral-400">
             <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm dark:border-neutral-700 md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0">
@@ -20,8 +42,8 @@ export default function Footer() {
                         {
                             listFootNav.map((item, index) => (
                                 <li key={index}>
-                                    <Link className="block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm text-black dark:text-neutral-300" href="/">
-                                        {item}
+                                    <Link className="block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm text-black dark:text-neutral-300" href={`/${item.link}`}>
+                                        {item.name}
                                     </Link>
                                 </li>
                             ))
