@@ -18,8 +18,8 @@ export default function Collection({
               <Link
                 href={`${e !== "All" ? "/search/" + e : "/search"}`}
                 className={`w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100 ${
-                  e === category ||
-                  (!category && e === "All" && "underline underline-offset-4")
+                  (e === category || (!category && e === "All")) &&
+                  "underline underline-offset-4"
                 }`}
               >
                 {e}

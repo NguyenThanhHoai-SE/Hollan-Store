@@ -1,16 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
+import { useMainLayoutContext } from "./MainLayoutContext";
+import DrawerCo from "../Drawer";
 export default function Header() {
   const router = useRouter();
-  const [cart, setCart] = useState([])
-  setTimeout(() => {
-    setCart(typeof window !== "undefined"
-    ? JSON.parse(localStorage.getItem("cartList") ?? "[]")
-    : []);
-  }, 1000)
-  
+  const [cart, setCart] = useState([]);
+  const { isShowCart, setIsShowCart } = useMainLayoutContext();
+
+  useEffect(() => {
+      setCart(
+        typeof window !== "undefined"
+          ? JSON.parse(localStorage.getItem("cartList") ?? "[]")
+          : []
+      );
+  }, [isShowCart]);
 
   const listNav = [
     {
@@ -127,10 +132,14 @@ export default function Header() {
           </div>
 
           <div className="flex justify-end md:w-1/3">
-            <div className={`border rounded-full h-[20px] w-[20px] text-xs flex justify-center items-center absolute top-[7px] right-[18px] bg-[#ffffff] text-[#000000] z-[1] ${cartCount === 0 && 'hidden'}`}>
+            <div
+              className={`border rounded-full h-[20px] w-[20px] text-xs flex justify-center items-center absolute top-[7px] right-[18px] bg-[#ffffff] text-[#000000] z-[1] ${
+                cartCount === 0 && "hidden"
+              }`}
+            >
               {cartCount}
             </div>
-            <button aria-label="Open cart">
+            <button aria-label="Open cart" onClick={() => setIsShowCart(true)}>
               <div className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -152,6 +161,8 @@ export default function Header() {
           </div>
         </div>
       </nav>
+
+      <DrawerCo isShow={isShowCart} setIsShow={setIsShowCart} />
     </>
   );
 }

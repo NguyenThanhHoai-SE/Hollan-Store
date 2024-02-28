@@ -1,0 +1,12 @@
+.drawer_cus {
+    :global {
+        .ant-drawer-content {
+            background-color: black !important;
+        }
+
+        .ant-drawer-title {
+            color: white !important;
+            font-size: 20px;
+        }
+    }
+}

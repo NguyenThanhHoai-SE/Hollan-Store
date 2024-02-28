@@ -1,34 +1,52 @@
-import { Product } from "../../model/type";
+import { Product, ProductCus } from "../../model/type";
 import Image from "next/image";
 import SizeAndColor from "./SizeAndColor";
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
+import { useMainLayoutContext } from "../common/Head/MainLayoutContext";
+import moment from 'moment';
 
-interface ProductCus extends Product {
-  count: number;
-}
 export default function ProductDetail({ product }: { product: Product }) {
-  const [selectColor, setSelectColor] = useState<string>('');
-  const [selectSize, setSelectSize] = useState<string>('');
+  const [selectColor, setSelectColor] = useState<string>("");
+  const [selectSize, setSelectSize] = useState<string>("");
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const { setIsShowCart } = useMainLayoutContext();
 
   const addToCart = () => {
     let cart: ProductCus[] = JSON.parse(
       localStorage.getItem("cartList") ?? "[]"
     );
     if (cart.length > 0) {
-      let indexProduct = cart.findIndex((e) => e.id === product.id);
+      let indexProduct = cart.findIndex(
+        (e) =>
+          e.id === product.id &&
+          e.color === selectColor &&
+          e.size === selectSize
+      );
       if (indexProduct >= 0) {
         cart.splice(indexProduct, 1, {
           ...cart[indexProduct],
           count: cart[indexProduct].count + 1,
         });
       } else {
-        cart.push({ ...product, count: 1 });
+        cart.push({
+          ...product,
+          count: 1,
+          color: selectColor,
+          size: selectSize,
+          idCart: moment().format("YYYYMMDD_HHmmss"),
+        });
       }
-    } else cart.push({ ...product, count: 1 });
+    } else
+      cart.push({
+        ...product,
+        count: 1,
+        color: selectColor,
+        size: selectSize,
+        idCart: moment().format("YYYYMMDD_HHmmss"),
+      });
     localStorage.setItem("cartList", JSON.stringify(cart));
-    alert("add to cart successfull!");
+    setIsShowCart(true);
   };
 
   useEffect(() => {
