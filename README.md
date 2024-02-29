@@ -38,3 +38,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
+# When you add the antd library and use it, you may encounter the following error
+### ![alt text](image.png)  Cannot use import statement outside a module
+in the nextjs.config.js file I added this line:
+###### transpilePackages: [ "antd", "@ant-design", "rc-util", "rc-pagination", "rc-picker", "rc-notification", "rc-tooltip", "rc-tree", "rc-table" ],
+
+

@@ -6,13 +6,38 @@ const NoSSR = dynamic(() => import("../components/common/Head"), {
 });
 import "../app/globals.css";
 import { MainLayoutProvider } from "@/components/common/Head/MainLayoutContext";
-export default function App({ Component, pageProps }: AppProps) {
+import type { NextPage } from "next";
+import { ReactElement } from "react";
+
+export type NextPageWithLayout<P = Record<string, never>, IP = P> = NextPage<
+  P,
+  IP
+> & {
+  getLayout?: (page: ReactElement) => JSX.Element;
+  title?: string;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  let getLayout =
+    Component.getLayout ??
+    ((page) => {
+      return (
+        <>
+          <NoSSR />
+          {page}
+          <Footer />
+        </>
+      );
+    });
+
   return (
     <>
       <MainLayoutProvider>
-        <NoSSR />
-        <Component {...pageProps} />
-        <Footer />
+        {getLayout(<Component {...pageProps} />)}
       </MainLayoutProvider>
     </>
   );

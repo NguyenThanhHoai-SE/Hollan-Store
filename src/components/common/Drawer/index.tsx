@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Drawer, Space } from "antd";
+import { Drawer } from "antd";
 import styles from "./index.module.scss";
 import { CartEmpty } from "./CartEmpty";
 import { ProductCus } from "../../../model/type";
@@ -98,12 +98,12 @@ export default function DrawerCo(props: Props) {
             <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
               <p>Total</p>
               <p className="text-right text-base text-black dark:text-white">
-                ${total} <span className="ml-1 inline">USD</span>
+                ${total.toFixed(2)} <span className="ml-1 inline">USD</span>
               </p>
             </div>
           </div>
           <Link
-            href="/"
+            href="/checkouts"
             className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
           >
             Proceed to Checkout
