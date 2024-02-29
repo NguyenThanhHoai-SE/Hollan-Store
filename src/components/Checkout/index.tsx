@@ -169,7 +169,7 @@ export function Checkout() {
 
                   <div className="flex flex-col px-5">
                     <p>{e.title}</p>
-                    <p className="text-[#A8A8A8] capitalize">{e.color} / {e.size}</p>
+                    {e.color && e.size && <p className="text-[#A8A8A8] capitalize">{e.color} / {e.size}</p>}
                   </div>
                   </div>
 

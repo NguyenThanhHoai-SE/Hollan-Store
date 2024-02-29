@@ -82,9 +82,11 @@ export function CartItem(props: Props) {
         </div>
         <div className="flex flex-1 flex-col text-base">
           <span className="leading-tight line-clamp-2">{item.title}</span>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            {item.color} / {item.size}
-          </p>
+          {item.color && item.size && (
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+              {item.color} / {item.size}
+            </p>
+          )}
         </div>
       </Link>
 
