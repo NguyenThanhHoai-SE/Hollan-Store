@@ -4,7 +4,7 @@ import SizeAndColor from "./SizeAndColor";
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { useMainLayoutContext } from "../common/Head/MainLayoutContext";
-import moment from 'moment';
+import moment from "moment";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const [selectColor, setSelectColor] = useState<string>("");
@@ -124,9 +124,9 @@ export default function ProductDetail({ product }: { product: Product }) {
             <Image
               alt={product.title}
               src={product.image}
-              priority
               fill
               className="h-full w-full object-contain"
+              loading="lazy"
             />
           </div>
         </div>
@@ -210,6 +210,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                     className="relative bg-[#ffffff] h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105"
                     fill
                     src={item.image}
+                    loading="lazy"
                     alt=""
                     sizes={`(min-width: 768px) 33vw, 50vw`}
                     style={{

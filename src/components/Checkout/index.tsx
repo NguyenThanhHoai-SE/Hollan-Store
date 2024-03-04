@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import Checkbox from "antd/es/checkbox/Checkbox";
 import { ProductCus } from "../../model/type";
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 export function Checkout() {
   const items = [
@@ -43,12 +43,12 @@ export function Checkout() {
   const total = useMemo(() => {
     const initialValue = 0;
     const sumWithInitial = cart.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.price*currentValue.count,
+      (accumulator, currentValue) =>
+        accumulator + currentValue.price * currentValue.count,
       initialValue
     );
     return sumWithInitial;
   }, [cart]);
-
 
   return (
     <div className={`${styles.checkout} flex mt-[50px] justify-center`}>
@@ -154,23 +154,30 @@ export function Checkout() {
         <div>
           <ul className="flex-grow overflow-auto py-4">
             {cart.map((e: ProductCus, index: number) => (
-              <li
-                key={index}
-                className="flex w-full flex-col my-5"
-              >
+              <li key={index} className="flex w-full flex-col my-5">
                 <div className="flex justify-between">
                   <div className="flex flex-row space-x-4">
-                  <div className="relative w-[62px] h-[62px]">
-                    <Image alt={e.title} src={e.image} fill className="rounded bg-[#fff]"/>
-                    <div className="absolute top-[-10px] right-[-10px] border rounded-full bg-[#000000] w-[20px] h-[20px] flex justify-center items-center">
-                      {e.count}
+                    <div className="relative w-[62px] h-[62px]">
+                      <Image
+                        alt={e.title}
+                        src={e.image}
+                        fill
+                        className="rounded bg-[#fff]"
+                        loading="lazy"
+                      />
+                      <div className="absolute top-[-10px] right-[-10px] border rounded-full bg-[#000000] w-[20px] h-[20px] flex justify-center items-center">
+                        {e.count}
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex flex-col px-5">
-                    <p>{e.title}</p>
-                    {e.color && e.size && <p className="text-[#A8A8A8] capitalize">{e.color} / {e.size}</p>}
-                  </div>
+                    <div className="flex flex-col px-5">
+                      <p>{e.title}</p>
+                      {e.color && e.size && (
+                        <p className="text-[#A8A8A8] capitalize">
+                          {e.color} / {e.size}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   <div>
@@ -193,7 +200,12 @@ export function Checkout() {
           </div>
           <div className="flex justify-between py-1">
             <p className="text-[20px] font-bold">Total</p>
-            <p className="text-[20px] font-bold"><span className="text-[12px] text-[#A8A8A8] font-normal">USD </span>${total.toFixed(2)}</p>
+            <p className="text-[20px] font-bold">
+              <span className="text-[12px] text-[#A8A8A8] font-normal">
+                USD{" "}
+              </span>
+              ${total.toFixed(2)}
+            </p>
           </div>
         </div>
       </div>

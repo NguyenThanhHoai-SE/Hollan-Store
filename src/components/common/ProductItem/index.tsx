@@ -7,11 +7,11 @@ export default function ProductItem({ item }: { item: Product }) {
     <Link className="relative inline-block h-full w-full" href={`/product/${item.id}`}>
       <div className="group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800">
         <Image
-          className="relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105"
-          objectFit="cover"
+          className="bg-[#ffffff] relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105"
           src={item.image}
           fill
           alt={item.title}
+          loading="lazy"
         />
         <div className="absolute bottom-0 left-0 flex w-full px-4 pb-4 @container/label">
           <div className="flex items-center rounded-full border bg-white/70 p-1 text-xs font-semibold text-black backdrop-blur-md dark:border-neutral-800 dark:bg-black/70 dark:text-white">
