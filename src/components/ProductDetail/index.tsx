@@ -3,14 +3,14 @@ import Image from "next/image";
 import SizeAndColor from "./SizeAndColor";
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
-import { useMainLayoutContext } from "../common/Head/MainLayoutContext";
+import { useMainLayoutContext } from "@/components/common/Head/MainLayoutContext";
 import moment from "moment";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const [selectColor, setSelectColor] = useState<string>("");
   const [selectSize, setSelectSize] = useState<string>("");
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const { setIsShowCart } = useMainLayoutContext();
+  const { setIsShowCart, setIsLoading } = useMainLayoutContext();
 
   const addToCart = () => {
     let cart: ProductCus[] = JSON.parse(
@@ -46,17 +46,30 @@ export default function ProductDetail({ product }: { product: Product }) {
         idCart: moment().format("YYYYMMDD_HHmmss"),
       });
     localStorage.setItem("cartList", JSON.stringify(cart));
-    setIsShowCart(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsShowCart(true);
+      setIsLoading(false);
+    }, 500)
   };
 
   useEffect(() => {
-    if (product)
-      fetch(`https://fakestoreapi.com/products/category/${product.category}`)
+    const fetchGetProductsByCategory = async () => {
+      await fetch(
+        `https://fakestoreapi.com/products/category/${product.category}`
+      )
         .then((res) => res.json())
         .then((json) =>
           setRelatedProducts(json?.filter((e: Product) => e.id !== product.id))
         );
-  }, [product]);
+      setIsLoading(false);
+    };
+
+    if (product) {
+      setIsLoading(true);
+      fetchGetProductsByCategory();
+    }
+  }, [product, setIsLoading]);
 
   const isAddToCart = useMemo(() => {
     if (!["electronics", "jewelery"].includes(product.category))
@@ -176,14 +189,14 @@ export default function ProductDetail({ product }: { product: Product }) {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 aria-hidden="true"
                 className="h-5"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M12 4.5v15m7.5-7.5h-15"
                 ></path>
               </svg>

@@ -2,10 +2,10 @@
 import { Drawer } from "antd";
 import styles from "./index.module.scss";
 import { CartEmpty } from "./CartEmpty";
-import { ProductCus } from "../../../model/type";
 import { CartItem } from "./CartItem/index";
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { ProductCus } from "@/model/type";
 interface Props {
   isShow: boolean;
   setIsShow: (value: boolean) => void;
@@ -56,14 +56,14 @@ export default function DrawerCo(props: Props) {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               aria-hidden="true"
               className="h-6 transition-all ease-in-out hover:scale-110 "
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M6 18L18 6M6 6l12 12"
               ></path>
             </svg>

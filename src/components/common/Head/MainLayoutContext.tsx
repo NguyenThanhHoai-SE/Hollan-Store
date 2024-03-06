@@ -4,6 +4,8 @@ import { useState } from "react";
 interface MainLayoutContextValue {
   isShowCart: boolean;
   setIsShowCart: (value: boolean) => void;
+  isLoading: boolean;
+  setIsLoading: (value: boolean) => void;
 }
 
 interface MainLayoutProps {
@@ -13,16 +15,21 @@ interface MainLayoutProps {
 const MainLayoutContext = React.createContext<MainLayoutContextValue>({
   isShowCart: false,
   setIsShowCart: () => {},
+  isLoading: false,
+  setIsLoading: () => {}
 });
 
 const MainLayoutProvider = ({ children }: MainLayoutProps) => {
   const [isShowCart, setIsShowCart] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const contextValue = React.useMemo(
     () => ({
       isShowCart,
       setIsShowCart,
+      isLoading,
+      setIsLoading
     }),
-    [isShowCart, setIsShowCart]
+    [isShowCart, setIsShowCart, isLoading, setIsLoading]
   );
 
   return (

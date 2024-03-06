@@ -1,19 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@keyframes marquee {
-  0% {
-      transform: translateX(0)
-  }
-
-  to {
-      transform: translateX(-100%)
-  }
-}
-
-.animate-carousel {
-  animation: marquee 60s linear infinite;
-}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -43,4 +30,23 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@keyframes marquee {
+  0% {
+      transform: translateX(0)
+  }
+
+  to {
+      transform: translateX(-100%)
+  }
+}
+
+.animate-carousel {
+  animation: marquee 60s linear infinite;
+}
+
+.ant-spin{
+    position: fixed !important;
+    max-height: 100% !important;
 }

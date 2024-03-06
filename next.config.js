@@ -7,4 +7,30 @@ module.exports = {
         ],
     },
     transpilePackages: [ "antd", "@ant-design", "rc-util", "rc-pagination", "rc-picker", "rc-notification", "rc-tooltip", "rc-tree", "rc-table" ],
+    async redirects() {
+        return [
+            {
+                source: '/main',
+                permanent:  true,
+                destination: '/'
+            },
+            {
+                source: '/product-detail',
+                permanent:  true,
+                destination: '/product/:ID',
+                has: [
+                    {
+                        type: 'query',
+                        key: 'ID',
+                        value: '(?<ID>.*)'
+                    }
+                ]
+            },
+            {
+                source: '/product-detail-no-query',
+                permanent:  true,
+                destination: '/product'
+            },
+        ]
+    }
 };

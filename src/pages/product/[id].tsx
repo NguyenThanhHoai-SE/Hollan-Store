@@ -6,7 +6,6 @@ import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 
 export const getServerSideProps = (async (context) => {
     const {id} = context.query;
-    console.log("context", id);
     // Fetch data from external API
     const res = await fetch(`https://fakestoreapi.com/products/${id}`);
     const repo: Product = await res.json();

@@ -42,7 +42,7 @@ export default function Footer() {
                         {
                             listFootNav.map((item, index) => (
                                 <li key={index}>
-                                    <Link className="block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm text-black dark:text-neutral-300" href={`/${item.link}`}>
+                                    <Link className="block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm text-black dark:text-neutral-300" href={`${item.link}`}>
                                         {item.name}
                                     </Link>
                                 </li>
