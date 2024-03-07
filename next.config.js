@@ -27,7 +27,7 @@ module.exports = {
                 ]
             },
             {
-                source: '/product-detail-no-query',
+                source: '/p',
                 permanent:  true,
                 destination: '/product'
             },
