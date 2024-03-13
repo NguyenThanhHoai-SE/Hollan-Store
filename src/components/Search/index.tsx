@@ -14,9 +14,9 @@ export default function Search({ collections }: { collections: string[] }) {
       <Collection category={category as string} collections={collections} />
       <ListProduct
         category={category as string}
-        isReady={router.isReady}
         sort={(sort as string) ?? "asc"}
         q = {q as string ?? ''}
+        isReady = {router.isReady && router.pathname.includes('category') ? !!category : true}
       />
       <div className="order-none flex-none md:order-last md:w-[125px]">
         <nav>

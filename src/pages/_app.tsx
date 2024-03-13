@@ -10,6 +10,8 @@ import Footer from "../components/common/Foot/index";
 import { MainLayoutProvider } from "@/components/common/Head/MainLayoutContext";
 import InitExposedFunctions from "../components/common/InitExposedFunctions/InitExposedFunctions";
 import SpinBase from "@/components/common/SpinBase";
+import { Provider } from "react-redux";
+import store from "@/store";
 
 export type NextPageWithLayout<P = Record<string, never>, IP = P> = NextPage<
   P,
@@ -24,7 +26,6 @@ type AppPropsWithLayout = AppProps & {
 };
 
 console.warn = () => {};
-
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   let getLayout =
     Component.getLayout ??
@@ -40,6 +41,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
+    <Provider store={store}>
       <MainLayoutProvider>
         <SpinBase>
           <div>
@@ -48,6 +50,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           </div>
         </SpinBase>
       </MainLayoutProvider>
+      </Provider>
     </>
   );
 }

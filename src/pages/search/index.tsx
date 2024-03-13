@@ -1,10 +1,12 @@
 import Search from "../../components/Search";
 import Head from "next/head";
 import type { InferGetStaticPropsType, GetStaticProps } from "next";
+import store from "@/store";
+import API from "@/services/Api";
 
 export const getStaticProps = (async () => {
-  const res = await fetch("https://fakestoreapi.com/products/categories");
-  const categories = await res.json();
+  const categoryList: any = await store.dispatch(API.getCategories);
+  const categories = categoryList?.data ?? [];
   return { props: { categories } };
 }) satisfies GetStaticProps<{
   categories: string[];

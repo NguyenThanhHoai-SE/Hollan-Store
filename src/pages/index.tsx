@@ -1,11 +1,13 @@
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import HomePage from "../components/HomePage";
 import { Product } from '../model/type';
+import store from "@/store";
+import API from "@/services/Api";
 
 export const getServerSideProps = (async () => {
   // Fetch data from external API
-  const res = await fetch("https://fakestoreapi.com/products");
-  const repo: Product[] = await res.json();
+  const products: any = await store.dispatch(API.getProducts);
+  const repo: Product[] = products.data;
   // Pass data to the page via props
   return { props: { repo } };
 }) satisfies GetServerSideProps<{ repo: Product[] }>;
